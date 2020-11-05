@@ -33,13 +33,7 @@ def login():
 
     password_hash = ddb_user_data['password_hash']
     encrypted_pepper = ddb_user_data['encrypted_pepper']
-    password_valid = nitro_verify_user_credentials(password, password_hash, encrypted_pepper)
-    if not password_valid['success']:
-        response_dict = password_valid
-    if not password_valid:
-        response_dict['error'] = 'invalid password'
-
-    return response_dict
+    return nitro_verify_user_credentials(password, password_hash, encrypted_pepper)
 
 @app.route('/new_user', methods=['POST'])
 def new_user():
