@@ -11,6 +11,7 @@ REGION = 'eu-central-1'
 ENCLAVE_CID = 6
 ENCLAVE_PORT = 5000
 KMS_ALIAS = 'alias/nitropepper-cmk'
+DYNAMODB_TABLE = 'nitropepper-users'
 
 dynamodb = boto3.resource('dynamodb', region_name=REGION)
 app = Flask(__name__)
@@ -72,7 +73,7 @@ def new_user():
 
 def ddb_fetch_user_data(username):
     """Fetch user data from DynamoDB."""
-    users_table = dynamodb.Table('NitroPepperUsers')
+    users_table = dynamodb.Table(DYNAMODB_TABLE)
     response = users_table.get_item(
             Key={
                 'username' : username,
@@ -86,7 +87,7 @@ def ddb_fetch_user_data(username):
 
 def ddb_store_user_data(username, password_hash, encrypted_pepper):
     """Store user credentials in DynamoDB."""
-    users_table = dynamodb.Table('NitroPepperUsers')
+    users_table = dynamodb.Table(DYNAMODB_TABLE)
     users_table.put_item(
         Item={
             'username': username,
