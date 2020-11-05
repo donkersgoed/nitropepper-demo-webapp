@@ -10,7 +10,7 @@ from flask import Flask, request
 REGION = 'eu-central-1'
 ENCLAVE_CID = 6
 ENCLAVE_PORT = 5000
-KMS_ALIAS = 'alias/NitroPepperCMK'
+KMS_ALIAS = 'alias/nitropepper-cmk'
 
 dynamodb = boto3.resource('dynamodb', region_name=REGION)
 app = Flask(__name__)
